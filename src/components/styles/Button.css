@@ -1,0 +1,26 @@
+.formButton {
+  position: relative;
+  left: -5px;
+  border-radius: 0 25px 25px 0;
+  width: 80px;
+  height: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #a8eb88;
+  color: #ffffff;
+  transition: 0.5s background-color
+}
+
+.formButton:hover {
+  background: seagreen;
+}
+
+.formButton:disabled,
+.formButton[disabled],
+.formButton:hover:disabled {
+  /* border: 1px solid #999999; */
+  background-color: #cccccc;
+  color: #666666;
+  pointer-events: none;
+}

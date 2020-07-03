@@ -1,0 +1,15 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  background: url(./assets/maxresdefault.jpg);
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: 100% 100vh;
+}
