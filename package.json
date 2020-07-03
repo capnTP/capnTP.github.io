@@ -4,7 +4,7 @@
   "description": "SPA Countdown Timer App",
   "private": true,
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -39,6 +39,7 @@
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^4.2.2"
   }
 }

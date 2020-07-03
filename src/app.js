@@ -123,6 +123,9 @@ class App extends Component {
           timerSpeed: this.state.timerSpeed
         });
       }
+      if (!this.state.iconResumePause && this.state.nextAction === 'start') {
+         return clearInterval(this.timer);
+      }
       clearInterval(this.timer);
       return this.handleTimer();
     }
@@ -138,7 +141,7 @@ class App extends Component {
     } = this.state;
     
     let placeHolder = window.innerWidth < 400 ? 'Min' : 'Countdown in (Min)';
-
+    
     return (
       <div className="container">
         <Form 

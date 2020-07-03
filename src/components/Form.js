@@ -53,7 +53,8 @@ export default class Form extends PureComponent{
       value: props.value || '',
       error: props.error || '',
       label: props.label || '',
-      locked: true
+      locked: true,
+      screenSize: window.innerWidth
     }
   }
 
@@ -76,11 +77,20 @@ export default class Form extends PureComponent{
     
     return this.props.onChange(id, value, errorMessage);
   }
+  resizeLabel = () => {
+    this.setState({
+      screenSize: window.innerWidth
+    })
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.resizeLabel);
+  }
 
   render(){
-    const { value, locked } = this.state;
+    const { value, locked, screenSize } = this.state;
     const { onSubmit } = this.props;
-    const inputLabel = window.innerWidth < 400 ? '# of Minutes' : 'Countdown in (Min)';
+    const inputLabel = screenSize < 400 ? '# of Minutes' : 'Countdown in (Min)';
     
     return (
       <ThemeProvider theme={theme}>
