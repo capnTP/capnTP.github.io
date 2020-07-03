@@ -110,6 +110,11 @@ class App extends Component {
       }
     }
     if (this.state.timerSpeed !== prevState.timerSpeed) {
+      if (this.state.secondsElapsed === 0) {
+        return this.setState({
+          timerSpeed: this.state.timerSpeed
+        });
+      }
       clearInterval(this.timer);
       return this.handleTimer();
     }
