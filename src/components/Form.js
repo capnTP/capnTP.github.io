@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Grid, TextField, Button } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -23,7 +23,7 @@ const theme = createMuiTheme({
   },
 });
 
-export default class Form extends Component{
+export default class Form extends PureComponent{
   static propTypes = {
     id: PropTypes.string.isRequired,
     locked: PropTypes.bool,
@@ -72,22 +72,15 @@ export default class Form extends Component{
         value: '',
         locked: true
       });
-      // errorMessage = 'Input is not a number!';
     } 
-    // else {
-    //   this.setState({
-    //     value: '',
-    //     locked: true
-    //   });
-    //   // errorMessage = 'A maximum of 1 hr (60 mins) is allowed.';
-    // }
     
     return this.props.onChange(id, value, errorMessage);
   }
 
   render(){
-    const { focused, value, error, label, locked } = this.state;
-    const { id, type, onSubmit } = this.props;
+    const { value, locked } = this.state;
+    const { onSubmit } = this.props;
+    const inputLabel = window.innerWidth < 400 ? '# of Minutes' : 'Countdown in (Min)';
     
     return (
       <ThemeProvider theme={theme}>
@@ -96,7 +89,7 @@ export default class Form extends Component{
             <TextField 
               id="outlined-basic" 
               variant="outlined" 
-              label="Countdown in (Min)" 
+              label={inputLabel}
               size="small"
               value={value}
               maxLength={2}
@@ -121,16 +114,6 @@ export default class Form extends Component{
               Start
             </Button>
           </Grid>
-          {/* <h3>Countdown:</h3>
-          <input
-            id={id}
-            type="text" 
-            name="mins"
-            placeholder="(Min)"
-            maxLength="2"
-            onChange={this.onChange}
-          />
-          <Button className="formButton" title="Start" onClick={this.onSubmit} disabled={locked} /> */}
         </Grid>
       </ThemeProvider>
     )

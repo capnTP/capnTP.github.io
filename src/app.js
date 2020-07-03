@@ -1,16 +1,9 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-// import { Grid, Button } from '@material-ui/core';
-// import { createMuiTheme } from '@material-ui/core/styles';
-// import { ThemeProvider } from '@material-ui/styles';
-// import { SvgIcon } from '@material-ui/core';
-// import {PauseCircleOutlineIcon, PlayCircleOutlineIcon} from '@material-ui/icons';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
-
 
 import Form from './components/Form';
 import SpeedFunction from './components/SpeedFunction';
+import Display from './components/Display';
 import './components/styles/App.css'
 
 class App extends Component {
@@ -24,6 +17,7 @@ class App extends Component {
       displayMessage: '',
       displayMessageStyle: 'black',
       displayMessageAnimation: 1,
+      iconResumePause: true,
       userInput: 0
     }
   }
@@ -43,6 +37,18 @@ class App extends Component {
   }
 
   // handle pause and resume func
+  handleResumePause = () => {
+    const { nextAction } = this.state
+    if (nextAction === 'stop') {
+      clearInterval(this.timer)
+    } else {
+      this.handleTimer()
+    }
+    return this.setState({
+      nextAction: nextAction === 'start' ? 'stop' : 'start'
+    });
+  }
+
   handleTimer = () => {
     this.timer = setInterval(() => {
       this.setState(prevState => ({
@@ -78,7 +84,8 @@ class App extends Component {
     if ((this.state.secondsElapsed !== prevState.secondsElapsed)) {
       if (prevState.secondsElapsed === 0) {
         this.setState({
-          // nextAction: 'start',
+          nextAction: 'stop',
+          iconResumePause: false,
           displayMessage: '',
           displayMessageStyle: 'black',
           displayMessageAnimation: 1
@@ -103,7 +110,8 @@ class App extends Component {
       }
       if (this.state.secondsElapsed === 0) {
         this.setState({
-          // nextAction: 'start',
+          nextAction: 'start',
+          iconResumePause: true,
           displayMessage: 'Time\'s up!'
         });
         return clearInterval(this.timer);
@@ -122,17 +130,20 @@ class App extends Component {
 
   render() {
     const {
-      nextAction, 
+      nextAction,
+      iconResumePause,
       displayMessage, 
       displayMessageStyle, 
       displayMessageAnimation
-    } = this.state; 
+    } = this.state;
+    
+    let placeHolder = window.innerWidth < 400 ? 'Min' : 'Countdown in (Min)';
 
     return (
       <div className="container">
         <Form 
           id="1" 
-          label="Countdown in (Min)"
+          label={placeHolder}
           onChange={this.handleFormChange}
           onSubmit={this.handleFormSubmit}
         />
@@ -146,10 +157,13 @@ class App extends Component {
             {displayMessage}
           </h3>
         </div>
-        <div className="display-time">
-          <h1>{`${this.getMinutes()}:${this.getSeconds()}`}</h1>
-          {/* {nextAction === 'stop' ? <PauseCircleOutlineIcon /> : <PlayCircleOutlineIcon />} */}
-        </div>
+          <Display 
+            min={this.getMinutes()}
+            sec={this.getSeconds()}
+            nextAction={nextAction}
+            iconStatus={iconResumePause}
+            onClick={this.handleResumePause}
+          />
         <div className="function">
           <SpeedFunction 
             onSpeedChange={this.handleSpeed}

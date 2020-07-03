@@ -1,8 +1,6 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Button } from '@material-ui/core';
-import { createMuiTheme, withStyles } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import './styles/SpeedFunction.css'
 
@@ -23,23 +21,7 @@ const theme = createMuiTheme({
   },
 });
 
-const SpeedButton = withStyles({
-  root: {
-    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    // borderRadius: 3,
-    // border: 0,
-    // color: 'white',
-    // height: 48,
-    // padding: '0 30px',
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-  },
-  label: {
-    // textTransform: 'capitalize',
-  },
-  // .Button:focus {}
-})(Button);
-
-export default class SpeedFunction extends Component{
+export default class SpeedFunction extends PureComponent{
   static propTypes = {
     onSpeedChange: PropTypes.func,
  };
@@ -59,7 +41,6 @@ export default class SpeedFunction extends Component{
   }
 
   render() {
-    // const { onSpeedChange } = this.state;
 
     return (
       <div className="radio-container" onChange={this.onSpeedChange}>

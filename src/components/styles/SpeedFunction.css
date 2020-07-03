@@ -48,7 +48,26 @@ input:checked + label {
   color: #ffffff;
 }
 
-/* .Button:focus {
-  color: #ffffff;
-  background: seagreen;
-} */
+@media screen and (max-width: 400px) {
+  .radio {
+    width: 60px;
+    height: 50px;
+  }
+  .label1,.label2,.label3 {
+    height: 120px;
+    width: 60px;
+    background-size: 60px 140px;
+    background:linear-gradient(
+    to bottom,
+    white 0, white 72px,
+    #4caf50 70px, #6fbf73 140px 
+  );
+  }
+  .label2 {
+    left: 80px;
+  }
+  input:checked + label {
+    background-position: 0 -70px;
+    color: #ffffff;
+  }
+}
